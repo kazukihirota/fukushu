@@ -14,8 +14,8 @@ export class DailyRecord {
  *
  */
 export class DailyBook {
-  constructor(name, start, end, unit) {
-    this.name = name;
+  constructor(title, start, end, unit) {
+    this.title = title;
     this.start = start;
     this.end = end;
     this.unit = unit;

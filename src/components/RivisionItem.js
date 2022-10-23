@@ -1,15 +1,16 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 
-export default function DailyRecordCard(props) {
-  const record = props.record;
+export default function RivisionItem(props) {
+  const item = props.item;
+
   return (
     <div className='my-2'>
       <Card>
         <Card.Body>
-          <Card.Title className='mb-3'>{record.date}</Card.Title>
+          <Card.Title className='mb-3'>{item.date}</Card.Title>
 
-          {record.books.map((book) => (
+          {item.books.map((book) => (
             <div key={book.name} className='d-flex'>
               <Card.Text className='fw-bold'>{book.title}</Card.Text>
               <Card.Text className='ms-3'>

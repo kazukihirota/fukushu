@@ -9,9 +9,10 @@ export default function () {
       new DailyBook('book2', '205', '230', 'page'),
     ]),
   ];
+
   return (
     <>
-      <h1>Records</h1>
+      <h2>Records</h2>
       {records.map((r) => (
         <DailyRecordCard record={r} key={r} />
       ))}
