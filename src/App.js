@@ -1,15 +1,15 @@
-import { Container } from 'react-bootstrap';
-import Header from './components/Header';
 import { AuthProvider } from './contexts/AuthContext';
 import Signup from './pages/Signup';
-import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
-import Splash from './pages/Splash';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import AddDailyRecord from './pages/AddDailyRecord';
+import AddBook from './pages/AddBook';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Splash />,
+    element: <Dashboard />,
   },
   {
     path: '/signup',
@@ -19,20 +19,20 @@ const router = createBrowserRouter([
     path: '/login',
     element: <Login />,
   },
+  {
+    path: '/add-daily-record',
+    element: <AddDailyRecord />,
+  },
+  {
+    path: '/add-book',
+    element: <AddBook />,
+  },
 ]);
 
 function App() {
   return (
     <AuthProvider>
-      <Header />
-      <Container
-        className='d-flex align-items-center justify-content-center'
-        style={{ minHeight: '100vh' }}
-      >
-        <div className='w-100' style={{ maxWidth: '400px' }}>
-          <RouterProvider router={router}></RouterProvider>
-        </div>
-      </Container>
+      <RouterProvider router={router}></RouterProvider>
     </AuthProvider>
   );
 }
