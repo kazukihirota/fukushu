@@ -10,7 +10,7 @@ export default function RivisionItem(props) {
         <Card.Body>
           <Card.Title className='mb-3'>{item.date}</Card.Title>
 
-          {item.books.map((book) => (
+          {/* {item.books.map((book) => (
             <div key={book.name} className='d-flex'>
               <Card.Text className='fw-bold'>{book.title}</Card.Text>
               <Card.Text className='ms-3'>
@@ -20,7 +20,7 @@ export default function RivisionItem(props) {
                 to {book.unit} {book.end}
               </Card.Text>
             </div>
-          ))}
+          ))} */}
         </Card.Body>
       </Card>
     </div>
