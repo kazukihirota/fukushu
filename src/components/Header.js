@@ -2,10 +2,11 @@ import { Container, Navbar, Button } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
+import { FiLogOut } from 'react-icons/fi';
 
 export default function Header() {
   const [error, setError] = useState('');
-  const { logout } = useAuth();
+  const { logout, currentUser } = useAuth();
   const navigate = useNavigate();
 
   async function handleLogout() {
@@ -27,8 +28,9 @@ export default function Header() {
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className='justify-content-end'>
-          <Button variant='light' onClick={handleLogout}>
-            Log Out
+          Hi {currentUser ? currentUser.name : ''}
+          <Button variant='none' className='ms-2' onClick={handleLogout}>
+            <FiLogOut />
           </Button>
         </Navbar.Collapse>
       </Container>

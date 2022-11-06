@@ -1,11 +1,7 @@
+import axios from 'axios';
 import React, { useContext, useState, useEffect } from 'react';
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-} from 'firebase/auth';
-import { auth } from '../firebase';
+
+const API_URL = process.env.REACT_APP_SERVER_URL + 'users';
 
 const AuthContext = React.createContext();
 
@@ -15,28 +11,35 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(false);
 
-  function signup(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password);
+  async function signup(name, email, password) {
+    const response = await axios.post(API_URL, { name, email, password });
+
+    if (response.data) {
+      localStorage.setItem('user', JSON.stringify(response.data));
+      setCurrentUser(response.data);
+      console.log('Logged in successfully');
+    } else {
+      throw new Error('');
+    }
   }
 
-  function login(email, password) {
-    return signInWithEmailAndPassword(auth, email, password);
+  async function login(email, password) {
+    const response = await axios.post(API_URL + '/login', { email, password });
+
+    if (response.data) {
+      localStorage.setItem('user', JSON.stringify(response.data));
+      setCurrentUser(response.data);
+      console.log('Logged in successfully');
+    } else {
+      throw new Error('');
+    }
   }
 
   function logout() {
-    return signOut(auth);
+    localStorage.removeItem('user');
+    setCurrentUser(null);
   }
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-      setLoading(false);
-    });
-
-    return unsubscribe;
-  }, []);
 
   const value = {
     currentUser,
@@ -45,9 +48,14 @@ export function AuthProvider({ children }) {
     logout,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
+  useEffect(() => {
+    if (!currentUser) {
+      const user = localStorage.getItem('user');
+      if (user) {
+        setCurrentUser(JSON.parse(user));
+      }
+    }
+  }, []);
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

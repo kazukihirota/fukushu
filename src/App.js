@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import AddDailyRecord from './pages/AddDailyRecord';
 import AddBook from './pages/AddBook';
+import { BookProvider } from './contexts/BookContext';
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <AuthProvider>
-      <RouterProvider router={router}></RouterProvider>
+      <BookProvider>
+        <RouterProvider router={router} />
+      </BookProvider>
     </AuthProvider>
   );
 }

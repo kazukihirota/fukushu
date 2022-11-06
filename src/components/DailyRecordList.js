@@ -1,5 +1,6 @@
 import React from 'react';
 import { DailyBook, DailyRecord } from '../models/dailyRecord';
+import AddDailyRecordButton from './AddDailyRecordButton';
 import DailyRecordCard from './DailyRecordCard';
 
 export default function () {
@@ -12,7 +13,11 @@ export default function () {
 
   return (
     <>
-      <h2>Records</h2>
+      <div className='d-flex justify-content-between align-items-center mb-2'>
+        <h2>Records</h2>
+        <AddDailyRecordButton />
+      </div>
+
       {records.map((r) => (
         <DailyRecordCard record={r} key={r} />
       ))}

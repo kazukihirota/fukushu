@@ -2,12 +2,10 @@ import React, { useRef, useState } from 'react';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import { child, getDatabase, push, ref, set, update } from 'firebase/database';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function AddBook() {
   const navigate = useNavigate();
-  const db = getDatabase();
   const { currentUser } = useAuth();
   const [error, setError] = useState('');
   const titleRef = useRef();
@@ -22,24 +20,24 @@ export default function AddBook() {
   console.log(titleRef);
 
   function handleSubmit() {
-    const bookData = {
-      title: titleRef.current.value,
-      type: typeRef.current.value,
-    };
+    // const bookData = {
+    //   title: titleRef.current.value,
+    //   type: typeRef.current.value,
+    // };
 
-    const userId = currentUser.uid;
+    // const userId = currentUser.uid;
 
-    try {
-      const newBookKey = push(child(ref(db), 'books')).key;
+    // try {
+    //   const newBookKey = push(child(ref(db), 'books')).key;
 
-      const updates = {};
-      updates['/books/' + newBookKey] = bookData;
-      updates['/user-books/' + userId + '/' + newBookKey] = bookData;
+    //   const updates = {};
+    //   updates['/books/' + newBookKey] = bookData;
+    //   updates['/user-books/' + userId + '/' + newBookKey] = bookData;
 
-      update(ref(db), updates);
-    } catch {
-      setError('Failed to add the book');
-    }
+    //   update(ref(db), updates);
+    // } catch {
+    //   setError('Failed to add the book');
+    // }
 
     return navigate(-1);
   }
